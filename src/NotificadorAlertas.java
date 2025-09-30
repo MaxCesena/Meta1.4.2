@@ -5,9 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class NotificadorAlertas implements SujetoAlerta {
     private static volatile NotificadorAlertas instancia;
     private List<ObservadorAlerta> observadores;
-    // Estrategia por defecto global (si no hay estrategia por tipo)
     private EstrategiaAnalisis estrategiaPorDefecto;
-    // Mapa: tipoSensor -> estrategia
     private Map<String, EstrategiaAnalisis> estrategiasPorTipo;
 
     private NotificadorAlertas() {
@@ -28,10 +26,6 @@ public class NotificadorAlertas implements SujetoAlerta {
         return instancia;
     }
 
-    /**
-     * Verifica la estrategia asignada al tipo de sensor y notifica si hay alerta.
-     * Ahora soporta estrategias por tipo de sensor (Strategy por tipo).
-     */
     public void verificarYNotificar(Sensor sensor) {
         EstrategiaAnalisis estrategia = estrategiasPorTipo.get(sensor.getTipo());
         if (estrategia == null) {
@@ -46,7 +40,7 @@ public class NotificadorAlertas implements SujetoAlerta {
 
     @Override
     public void registrarObservador(ObservadorAlerta observador) {
-        // Evitar duplicados según el tipo del observador
+
         synchronized (observadores) {
             boolean existe = observadores.stream()
                     .anyMatch(o -> o.obtenerTipoObservador().equals(observador.obtenerTipoObservador()));
@@ -70,7 +64,7 @@ public class NotificadorAlertas implements SujetoAlerta {
     @Override
     public void notificarObservadores(Alerta alerta) {
         System.out.println("\n🚨 Notificando " + observadores.size() + " observadores...");
-        // iteración segura
+
         synchronized (observadores) {
             for (ObservadorAlerta observador : new ArrayList<>(observadores)) {
                 try {

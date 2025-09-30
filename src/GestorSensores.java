@@ -24,7 +24,7 @@ public class GestorSensores {
     }
 
     public void registrarSensor(Sensor sensor) {
-        // Evitar sobreescribir sensor con mismo id (puedes permitir actualización si lo deseas)
+
         Sensor prev = sensores.putIfAbsent(sensor.getId(), sensor);
         if (prev == null) {
             System.out.println("✅ Sensor registrado: " + sensor.getId() + " en " + sensor.getUbicacion());
@@ -40,7 +40,7 @@ public class GestorSensores {
             sensor.setUltimaActualizacion(new Date());
             System.out.println("📊 Sensor " + idSensor + " actualizado: " + nuevoValor);
 
-            // Notificar a los observadores (Notificador decide estrategia por tipo)
+
             NotificadorAlertas.obtenerInstancia().verificarYNotificar(sensor);
         } else {
             System.out.println("❌ Sensor no encontrado: " + idSensor);
@@ -64,14 +64,13 @@ public class GestorSensores {
         return sensores.size();
     }
 
-    // Nuevo: obtener sensores por tipo
     public List<Sensor> obtenerSensoresPorTipo(String tipo) {
         return sensores.values().stream()
                 .filter(s -> tipo.equals(s.getTipo()))
                 .collect(Collectors.toList());
     }
 
-    // Nuevo: obtener estadísticas generales por tipo (count, promedio, min, max)
+
     public Map<String, Map<String, Double>> obtenerEstadisticas() {
         Map<String, List<Sensor>> porTipo = sensores.values().stream()
                 .collect(Collectors.groupingBy(Sensor::getTipo));

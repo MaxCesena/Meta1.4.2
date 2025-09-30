@@ -16,7 +16,7 @@ public class Sensor {
         this.ultimaActualizacion = new Date();
     }
 
-    // Getters y Setters
+
     public String getId() { return id; }
     public String getTipo() { return tipo; }
     public double getValor() { return valor; }

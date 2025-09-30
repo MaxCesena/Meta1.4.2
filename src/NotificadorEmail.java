@@ -9,7 +9,6 @@ public class NotificadorEmail implements ObservadorAlerta {
             case INFORMATIVO: prefijo = "ℹ️ INFORMATIVO - "; break;
         }
         System.out.println("📧 ENVIANDO EMAIL - " + prefijo + alerta.getMensaje());
-        // Lógica real de envío de email (simulada)
     }
 
     @Override

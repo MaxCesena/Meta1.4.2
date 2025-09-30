@@ -2,7 +2,7 @@
 import java.util.Date;
 
 public class EstrategiaAnalisisCalidadAire implements EstrategiaAnalisis {
-    // Ejemplo simple: índice AQI aproximado (valor interpretativo)
+
     @Override
     public Alerta analizar(Sensor sensor) {
         if (!"calidad_aire".equals(sensor.getTipo())) return null;

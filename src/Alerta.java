@@ -14,7 +14,7 @@ public class Alerta {
         this.fechaHora = fechaHora;
     }
 
-    // Getters
+
     public String getIdSensor() { return idSensor; }
     public String getMensaje() { return mensaje; }
     public NivelAlerta getNivel() { return nivel; }
